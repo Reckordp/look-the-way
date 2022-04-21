@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/LookTheWay/app/src/main/res/layout/activity_main.xml" value="0.19636363210756924" />
+        <entry key="..\:/LookTheWay/app/src/main/res/layout/activity_item_configuration.xml" value="0.19636363210756924" />
+        <entry key="..\:/LookTheWay/app/src/main/res/layout/activity_main.xml" value="0.17454545076228378" />
+        <entry key="..\:/LookTheWay/app/src/main/res/layout/fragment_all_item.xml" value="0.23999999479814021" />
       </map>
     </option>
   </component>
