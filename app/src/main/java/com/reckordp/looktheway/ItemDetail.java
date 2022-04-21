@@ -23,6 +23,18 @@ public class ItemDetail implements Parcelable {
         aktif = true;
     }
 
+    public String getNama() {
+        return nama;
+    }
+
+    public int getSkor() {
+        return 0;
+    }
+
+    public int getKetergantunganSkor() {
+        return 0;
+    }
+
     protected ItemDetail(Parcel in) {
         nama = in.readString();
         fromTanda((byte) in.readInt());

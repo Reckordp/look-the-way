@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class ItemAdapter extends ArrayAdapter<ItemDetail> {
 
@@ -32,7 +33,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         String[] selectionArgs = {};
         Cursor allItemCursor = db.query(ItemDetail.TABLE_NAME, null, null,
                 selectionArgs, null, null, null);
-        allItem = new ArrayList<ItemDetail>();
+        allItem = new ArrayList<>();
         while (allItemCursor.moveToNext()) {
             ItemDetail item = new ItemDetail(allItemCursor.getString(0));
             item.fromTanda((byte) allItemCursor.getInt(1));
@@ -89,5 +90,23 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         if (colorDefault < 0) colorDefault = base.getCurrentTextColor();
         int colorId = acuan ? android.R.color.black : colorDefault;
         base.setTextColor(cResources.getColor(colorId, cTheme));
+    }
+
+    @Override
+    public void add(@Nullable ItemDetail object) {
+        super.add(object);
+        allItem.add(object);
+    }
+
+    public void urutPalingPenting() {
+        sort(Comparator.comparing(this::hitungSkor));
+    }
+
+    public void urutNama() {
+        sort(Comparator.comparing(ItemDetail::getNama));
+    }
+
+    private int hitungSkor(ItemDetail item) {
+        return item.getSkor() + item.getKetergantunganSkor();
     }
 }
