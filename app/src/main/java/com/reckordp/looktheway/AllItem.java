@@ -16,6 +16,7 @@ public class AllItem extends Fragment {
 
     public static int MODE_CONFIGURATION = 0;
     public static int MODE_SELECTION = 1;
+    public static ItemAdapter adapterAbadi = null;
 
     int clickMode;
 
@@ -23,15 +24,17 @@ public class AllItem extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         clickMode = MODE_CONFIGURATION;
+        if (adapterAbadi == null) adapterAbadi = new ItemAdapter(requireContext());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        FrameLayout layout = (FrameLayout) inflater.inflate(R.layout.fragment_all_item, container, false);
+        FrameLayout layout = (FrameLayout) inflater.inflate(R.layout.fragment_all_item,
+                container, false);
         ListView allItemListView = layout.findViewById(R.id.all_item);
-        allItemListView.setAdapter(new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1));
+        allItemListView.setAdapter(adapterAbadi);
         return layout;
     }
 
