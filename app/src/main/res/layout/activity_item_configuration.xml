@@ -6,4 +6,107 @@
     android:layout_height="match_parent"
     tools:context=".ItemConfiguration">
 
+    <TextView
+        android:id="@+id/item_label_nama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/nama_item"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textColor="@android:color/black" />
+
+    <EditText
+        android:id="@+id/item_nama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="@string/enter_nama"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_label_nama" />
+
+    <TextView
+        android:id="@+id/item_label_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/item_status_label"
+        app:layout_constraintStart_toStartOf="@+id/item_nama"
+        app:layout_constraintTop_toBottomOf="@+id/item_nama" />
+
+    <TextView
+        android:id="@+id/item_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/item_status_aktif"
+        app:layout_constraintStart_toEndOf="@+id/item_label_status"
+        app:layout_constraintTop_toBottomOf="@+id/item_nama" />
+
+    <CheckBox
+        android:id="@+id/centang_penting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="72dp"
+        android:text="@string/centang_penting"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_nama" />
+
+    <CheckBox
+        android:id="@+id/centang_darurat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/centang_darurat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/centang_penting" />
+
+    <CheckBox
+        android:id="@+id/centang_terkini"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/centang_terkini"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/centang_darurat" />
+
+    <CheckBox
+        android:id="@+id/centang_berkaitan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/centang_berkaitan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/centang_terkini" />
+
+    <TextView
+        android:id="@+id/item_berkaitan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="14dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/centang_berkaitan"
+        app:layout_constraintTop_toTopOf="@+id/centang_berkaitan" />
+
+    <Button
+        android:id="@+id/item_selesai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/item_selesai"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

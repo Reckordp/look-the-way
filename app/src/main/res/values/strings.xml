@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Look The Way</string>
     <string name="tambah_item">Tambah Item</string>
+    <string name="nama_item">Nama Item</string>
+    <string name="enter_nama">Enter Nama</string>
+    <string name="centang_penting">Penting</string>
+    <string name="centang_darurat">Darurat</string>
+    <string name="centang_terkini">Terkini</string>
+    <string name="item_status_label">Status</string>
+    <string name="item_status_aktif">Aktif</string>
+    <string name="item_status_nonaktif">Non-aktif</string>
+    <string name="centang_berkaitan">Berkaitan</string>
+    <string name="item_selesai">Selesai</string>
 </resources>
