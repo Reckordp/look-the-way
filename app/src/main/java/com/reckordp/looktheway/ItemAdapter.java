@@ -35,11 +35,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         allItem = new ArrayList<ItemDetail>();
         while (allItemCursor.moveToNext()) {
             ItemDetail item = new ItemDetail(allItemCursor.getString(0));
-            byte tanda = (byte)allItemCursor.getInt(1);
-            item.penting = ((tanda & 0x08) >> 3) == 1;
-            item.darurat = ((tanda & 0x04) >> 2) == 1;
-            item.terkini = ((tanda & 0x02) >> 1) == 1;
-            item.aktif = ((tanda & 0x01) >> 0) == 1;
+            item.fromTanda((byte) allItemCursor.getInt(1));
             item.berkaitan = allItemCursor.getInt(2);
             allItem.add(item);
         }

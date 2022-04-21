@@ -25,11 +25,8 @@ public class ItemDetail implements Parcelable {
 
     protected ItemDetail(Parcel in) {
         nama = in.readString();
-        penting = in.readByte() != 0;
-        darurat = in.readByte() != 0;
-        terkini = in.readByte() != 0;
+        fromTanda((byte) in.readInt());
         berkaitan = in.readInt();
-        aktif = in.readByte() != 0;
     }
 
     public static final Creator<ItemDetail> CREATOR = new Creator<ItemDetail>() {
@@ -44,6 +41,20 @@ public class ItemDetail implements Parcelable {
         }
     };
 
+    public void fromTanda(byte tanda) {
+        penting = ((tanda & 0x08) >> 3) == 1;
+        darurat = ((tanda & 0x04) >> 2) == 1;
+        terkini = ((tanda & 0x02) >> 1) == 1;
+        aktif = ((tanda & 0x01) >> 0) == 1;
+    }
+
+    public int createTanda() {
+        return ((byte)((penting ? 0 : 1) << 3) |
+                (byte)((darurat ? 0 : 1) << 2) |
+                (byte)((terkini ? 0 : 1) << 1) |
+                (byte)((aktif ? 0 : 1)));
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -52,10 +63,7 @@ public class ItemDetail implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(nama);
-        dest.writeByte((byte) (penting ? 0 : 1));
-        dest.writeByte((byte) (darurat ? 0 : 1));
-        dest.writeByte((byte) (terkini ? 0 : 1));
+        dest.writeInt(createTanda());
         dest.writeInt(berkaitan);
-        dest.writeByte((byte) (aktif ? 0 : 1));
     }
 }
