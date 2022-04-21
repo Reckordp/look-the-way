@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LookTheWay">
         <activity
+            android:name=".ItemConfiguration"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
