@@ -10,8 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LookTheWay">
         <activity
+            android:name=".BerkaitanActivity"
+            android:label="Pilih Berkaitan" />
+        <activity
             android:name=".ItemConfiguration"
-            android:exported="true" />
+            android:label="Item Configuration" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

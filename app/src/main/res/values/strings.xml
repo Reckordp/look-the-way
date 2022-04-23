@@ -11,4 +11,5 @@
     <string name="item_status_nonaktif">Non-aktif</string>
     <string name="centang_berkaitan">Berkaitan</string>
     <string name="item_selesai">Selesai</string>
+    <string name="item_simpan">simpan</string>
 </resources>
