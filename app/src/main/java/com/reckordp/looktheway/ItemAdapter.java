@@ -89,9 +89,8 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     }
 
     private void textViewTanda(TextView base, boolean acuan) {
-        if (colorDefault < 0) colorDefault = base.getCurrentTextColor();
-        int colorId = acuan ? android.R.color.black : colorDefault;
-        base.setTextColor(cResources.getColor(colorId, cTheme));
+        int colorId = acuan ? android.R.color.black : R.color.item_color;
+        base.setTextColor(cResources.getColor(colorId, null));
     }
 
     @Override
