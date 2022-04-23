@@ -67,7 +67,7 @@ public class ItemConfiguration extends AppCompatActivity {
         intent.putExtra(ITEM_BARU_HASIL, hadapan);
         setResult(RESULT_OK, intent);
 
-        findViewById(R.id.item_berkaitan).setOnClickListener(view -> finish());
+        findViewById(R.id.item_simpan).setOnClickListener(view -> finish());
         findViewById(R.id.item_selesai).setOnClickListener(view -> {
             hadapan.aktif = false;
             finish();
