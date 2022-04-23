@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginBottom="-40dp"
+        android:background="@drawable/top_shadow"
+        app:layout_constraintBottom_toTopOf="@id/bungkus_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <FrameLayout
         android:id="@+id/lembar"
         android:layout_width="match_parent"
@@ -16,11 +25,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/bungkus_button"
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:background="@android:color/white"
-        android:elevation="8dp"
-        android:gravity="center_vertical"
+        android:elevation="24dp"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,6 +40,9 @@
             android:id="@+id/tambah"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/tambah_item" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
