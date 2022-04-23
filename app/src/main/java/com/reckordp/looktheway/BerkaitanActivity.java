@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.reckordp.looktheway.databinding.ActivityBerkaitanBinding;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -27,6 +28,13 @@ public class BerkaitanActivity extends AppCompatActivity {
 
         AllItem allItemConfiguration = new AllItem();
         allItemConfiguration.setMode(AllItem.MODE_SELECTION);
+        allItemConfiguration.setOnItemClick(item -> {
+            Intent intent = new Intent();
+            intent.putExtra(BERKAITAN_TERPILIH, item.id);
+            setResult(RESULT_OK, intent);
+            finish();
+        });
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(berkaitanView.getId(), allItemConfiguration);
         transaction.commit();

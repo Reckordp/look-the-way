@@ -18,7 +18,9 @@ public class AllItem extends Fragment {
     public static final int MODE_SELECTION = 1;
     public static ItemAdapter adapterAbadi = null;
 
-    int clickMode;
+    private ListView allItemListView = null;
+    private int clickMode;
+    private ItemClickListener eItemClick = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class AllItem extends Fragment {
         // Inflate the layout for this fragment
         FrameLayout layout = (FrameLayout) inflater.inflate(R.layout.fragment_all_item,
                 container, false);
-        ListView allItemListView = layout.findViewById(R.id.all_item);
+        allItemListView = layout.findViewById(R.id.all_item);
         allItemListView.setAdapter(adapterAbadi);
         return layout;
     }
@@ -62,5 +64,20 @@ public class AllItem extends Fragment {
 
     public void setMode(int mode) {
         clickMode = mode;
+        if (allItemListView == null) refreshListView();
+    }
+
+    public interface ItemClickListener {
+        void onItemClick(ItemDetail item);
+    }
+
+    public void setOnItemClick(ItemClickListener onClick) {
+        eItemClick = onClick;
+    }
+
+    private void refreshListView() {
+        allItemListView.setOnItemClickListener((parent, view, position, id) -> {
+            if (eItemClick != null) eItemClick.onItemClick(adapterAbadi.allItem.get((int) id));
+        });
     }
 }
