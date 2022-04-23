@@ -46,7 +46,7 @@
         android:id="@+id/item_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="4dp"
         android:text="@string/item_status_aktif"
         app:layout_constraintStart_toEndOf="@+id/item_label_status"
         app:layout_constraintTop_toBottomOf="@+id/item_nama" />
@@ -100,13 +100,32 @@
 
     <Button
         android:id="@+id/item_selesai"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="20dp"
         android:text="@string/item_selesai"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/pembagian"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/item_simpan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/item_simpan"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/pembagian" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/pembagian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 </androidx.constraintlayout.widget.ConstraintLayout>
