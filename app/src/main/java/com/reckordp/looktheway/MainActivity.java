@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.tambah).setOnClickListener(view -> {
             Intent intent = new Intent(this, ItemConfiguration.class);
+            intent.putExtra(ItemConfiguration.CONFIGURATION_MODE,
+                    ItemConfiguration.CONFIGURATION_MODE_BARU);
             itemDetailLauncher.launch(intent);
         });
 

@@ -12,7 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class ItemConfiguration extends AppCompatActivity {
-    static String ITEM_BARU_HASIL = "ITEM BARU HASIL";
+    public static String ITEM_BARU_HASIL = "ITEM BARU HASIL";
+    public static String CONFIGURATION_MODE = "CONFIGURATION MODE";
+    public static String CONFIGURATION_MODE_BARU = "ITEM BARU";
+    public static String CONFIGURATION_MODE_ADA = "ITEM ADA";
+    public static String CONFIGURATION_MODE_ADA_ITEM = "CONFIGURATION ITEM";
 
     ItemDetail hadapan;
     private ActivityResultLauncher<Intent> berkaitanSelect;
@@ -31,7 +35,7 @@ public class ItemConfiguration extends AppCompatActivity {
             bar.setDisplayHomeAsUpEnabled(true);
         }
 
-        hadapan = new ItemDetail();
+        hadapan = adakanHadapan();
         berkaitanCentang = findViewById(R.id.centang_berkaitan);
 
         berkaitanSelect = registerForActivityResult(new StartActivityForResult(), result -> {
@@ -77,6 +81,16 @@ public class ItemConfiguration extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private ItemDetail adakanHadapan() {
+        Intent intent = getIntent();
+        if (intent.hasExtra(CONFIGURATION_MODE)) {
+            if (intent.getStringExtra(CONFIGURATION_MODE).equals(CONFIGURATION_MODE_ADA)) {
+                return (ItemDetail) intent.getParcelableExtra(CONFIGURATION_MODE_ADA_ITEM);
+            }
+        }
+        return new ItemDetail();
     }
 
     private void masukkanKaitan(int idItem) {
