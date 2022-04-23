@@ -7,6 +7,7 @@ public class ItemDetail implements Parcelable {
     static int LEPAS_KAITAN = 0;
     static String TABLE_NAME = "item";
 
+    int id;
     String nama;
     boolean penting;
     boolean darurat;
@@ -14,13 +15,19 @@ public class ItemDetail implements Parcelable {
     int berkaitan;
     boolean aktif;
 
-    ItemDetail(String nm) {
-        nama = nm;
+    ItemDetail() {
+        nama = "";
         penting = false;
         darurat = false;
         terkini = false;
         berkaitan = LEPAS_KAITAN;
         aktif = true;
+    }
+
+    protected ItemDetail(Parcel in) {
+        nama = in.readString();
+        fromTanda((byte) in.readInt());
+        berkaitan = in.readInt();
     }
 
     public String getNama() {
@@ -33,12 +40,6 @@ public class ItemDetail implements Parcelable {
 
     public int getKetergantunganSkor() {
         return 0;
-    }
-
-    protected ItemDetail(Parcel in) {
-        nama = in.readString();
-        fromTanda((byte) in.readInt());
-        berkaitan = in.readInt();
     }
 
     public static final Creator<ItemDetail> CREATOR = new Creator<ItemDetail>() {

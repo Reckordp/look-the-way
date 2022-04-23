@@ -35,9 +35,11 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
                 selectionArgs, null, null, null);
         allItem = new ArrayList<>();
         while (allItemCursor.moveToNext()) {
-            ItemDetail item = new ItemDetail(allItemCursor.getString(0));
-            item.fromTanda((byte) allItemCursor.getInt(1));
-            item.berkaitan = allItemCursor.getInt(2);
+            ItemDetail item = new ItemDetail();
+            item.id = allItemCursor.getInt(0);
+            item.nama = allItemCursor.getString(1);
+            item.fromTanda((byte) allItemCursor.getInt(2));
+            item.berkaitan = allItemCursor.getInt(3);
             allItem.add(item);
         }
         allItemCursor.close();
@@ -99,7 +101,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     }
 
     public void urutPalingPenting() {
-        sort(Comparator.comparing(this::hitungSkor));
+        sort(Comparator.comparingInt(this::hitungSkor));
     }
 
     public void urutNama() {
