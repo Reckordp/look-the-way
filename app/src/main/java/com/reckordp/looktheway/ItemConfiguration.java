@@ -22,11 +22,12 @@ public class ItemConfiguration extends AppCompatActivity {
     public static String CONFIGURATION_MODE_ADA_ITEM = "CONFIGURATION ITEM";
 
     ItemDetail hadapan;
+    private boolean satuKaitan = false;
+    private CheckBox berkaitanCentang = null;
     private ActivityResultLauncher<Intent> berkaitanSelect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        View berkaitanCentang;
         ActionBar bar;
 
         super.onCreate(savedInstanceState);
@@ -38,9 +39,6 @@ public class ItemConfiguration extends AppCompatActivity {
             bar.setDisplayHomeAsUpEnabled(true);
         }
 
-        hadapan = adakanHadapan();
-        berkaitanCentang = findViewById(R.id.centang_berkaitan);
-
         berkaitanSelect = registerForActivityResult(new StartActivityForResult(), result -> {
             Intent intent;
             intent = result.getData();
@@ -48,6 +46,13 @@ public class ItemConfiguration extends AppCompatActivity {
                 masukkanKaitan(intent.getIntExtra(BerkaitanActivity.BERKAITAN_TERPILIH, -1));
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hadapan = adakanHadapan();
+        berkaitanCentang = findViewById(R.id.centang_berkaitan);
 
         switch (AllItem.adapterAbadi.allItem.size()) {
             case 0:
@@ -55,11 +60,12 @@ public class ItemConfiguration extends AppCompatActivity {
                 break;
 
             case 1:
-                berkaitanCentang.setEnabled(false);
-                masukkanKaitan(AllItem.adapterAbadi.allItem.get(0).id);
+                berkaitanCentang.setEnabled(true);
+                satuKaitan = true;
                 break;
 
             default:
+                berkaitanCentang.setEnabled(true);
                 berkaitanCentang.setOnClickListener(view -> {
                     berkaitanSelect.launch(new Intent(this, BerkaitanActivity.class));
                 });
@@ -78,6 +84,10 @@ public class ItemConfiguration extends AppCompatActivity {
         hadapan.penting = ((CheckBox)findViewById(R.id.centang_penting)).isChecked();
         hadapan.darurat = ((CheckBox)findViewById(R.id.centang_darurat)).isChecked();
         hadapan.terkini = ((CheckBox)findViewById(R.id.centang_terkini)).isChecked();
+
+        if (satuKaitan && berkaitanCentang.isChecked()) {
+            masukkanKaitan(AllItem.adapterAbadi.allItem.get(0).id);
+        }
 
         Intent intent = new Intent();
         intent.putExtra(ITEM_BARU_HASIL, hadapan);
