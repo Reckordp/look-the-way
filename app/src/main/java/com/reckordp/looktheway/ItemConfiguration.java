@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 
 public class ItemConfiguration extends AppCompatActivity {
     public static String ITEM_BARU_HASIL = "ITEM BARU HASIL";
@@ -64,24 +66,39 @@ public class ItemConfiguration extends AppCompatActivity {
                 break;
         }
 
+        findViewById(R.id.item_simpan).setOnClickListener(view -> sudahiKonfigurasi());
+        findViewById(R.id.item_selesai).setOnClickListener(view -> {
+            hadapan.aktif = false;
+            sudahiKonfigurasi();
+        });
+    }
+
+    private void sudahiKonfigurasi() {
+        hadapan.nama = ((EditText)findViewById(R.id.item_nama)).getText().toString();
+        hadapan.penting = ((CheckBox)findViewById(R.id.centang_penting)).isChecked();
+        hadapan.darurat = ((CheckBox)findViewById(R.id.centang_darurat)).isChecked();
+        hadapan.terkini = ((CheckBox)findViewById(R.id.centang_terkini)).isChecked();
+
         Intent intent = new Intent();
         intent.putExtra(ITEM_BARU_HASIL, hadapan);
         setResult(RESULT_OK, intent);
-
-        findViewById(R.id.item_simpan).setOnClickListener(view -> finish());
-        findViewById(R.id.item_selesai).setOnClickListener(view -> {
-            hadapan.aktif = false;
-            finish();
-        });
+        finish();
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            batalkan();
             finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        batalkan();
+        super.onBackPressed();
     }
 
     private ItemDetail adakanHadapan() {
@@ -98,5 +115,11 @@ public class ItemConfiguration extends AppCompatActivity {
         if (idItem != -1) {
             hadapan.berkaitan = idItem;
         }
+    }
+
+    private void batalkan() {
+        Intent intent = new Intent();
+        intent.putExtra(ITEM_BATAL, true);
+        setResult(RESULT_OK, intent);
     }
 }
