@@ -95,8 +95,8 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
 
     @Override
     public void add(@Nullable ItemDetail object) {
-        super.add(object);
         allItem.add(object);
+        super.add(object);
     }
 
     public void urutPalingPenting() {
