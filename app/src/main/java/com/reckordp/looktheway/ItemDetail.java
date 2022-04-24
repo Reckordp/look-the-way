@@ -62,10 +62,10 @@ public class ItemDetail implements Parcelable {
     }
 
     public int createTanda() {
-        return ((byte)((penting ? 0 : 1) << 3) |
-                (byte)((darurat ? 0 : 1) << 2) |
-                (byte)((terkini ? 0 : 1) << 1) |
-                (byte)((aktif ? 0 : 1)));
+        return ((byte)((boolToInt(penting)) << 3) |
+                (byte)((boolToInt(darurat)) << 2) |
+                (byte)((boolToInt(terkini)) << 1) |
+                (byte)(boolToInt(aktif)));
     }
 
     @Override
@@ -78,5 +78,9 @@ public class ItemDetail implements Parcelable {
         dest.writeString(nama);
         dest.writeInt(createTanda());
         dest.writeInt(berkaitan);
+    }
+
+    private int boolToInt(boolean aliran) {
+        return aliran ? 1 : 0;
     }
 }
