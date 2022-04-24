@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent;
             AllItem allItem;
             intent = result.getData();
-            if (intent != null) {
+            if (intent != null && !intent.hasExtra(ItemConfiguration.ITEM_BATAL)) {
                 ItemDetail item = intent.getParcelableExtra(ItemConfiguration.ITEM_BARU_HASIL);
                 allItem = (AllItem) getSupportFragmentManager().getFragments().get(0);
                 allItem.addItem(item);
