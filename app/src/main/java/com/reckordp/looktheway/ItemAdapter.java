@@ -83,7 +83,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         textViewTanda(resourceItemTerkini, item.terkini);
         textViewTanda(resourceItemBerkaitan, item.berkaitan != ItemDetail.LEPAS_KAITAN);
         textViewTanda(resourceItemItemTerkait, item.berkaitan != ItemDetail.LEPAS_KAITAN);
-        resourceItemItemTerkait.setText(item.nama);
+//        resourceItemItemTerkait.setText(item.nama);
 
         return view;
     }
