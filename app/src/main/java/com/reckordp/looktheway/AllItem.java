@@ -40,10 +40,6 @@ public class AllItem extends Fragment {
         return layout;
     }
 
-    public void addItem(ItemDetail item) {
-        adapterAbadi.add(item);
-    }
-
     @Nullable
     @Override
     public View getView() {

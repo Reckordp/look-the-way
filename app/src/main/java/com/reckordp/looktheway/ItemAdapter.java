@@ -95,12 +95,6 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         base.setTextColor(cResources.getColor(colorId, null));
     }
 
-    @Override
-    public void add(@Nullable ItemDetail object) {
-        allItem.add(object);
-        super.add(object);
-    }
-
     public void urutPalingPenting() {
         sort(Comparator.comparingInt(this::hitungSkor));
     }
@@ -111,5 +105,9 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
 
     private int hitungSkor(ItemDetail item) {
         return item.getSkor() + item.getKetergantunganSkor();
+    }
+
+    public int jalurUntukMenyimpan(ItemDetail itemDetail) {
+        return allItem.contains(itemDetail) ? DATABASE_INSERT : DATABASE_UPDATE;
     }
 }
