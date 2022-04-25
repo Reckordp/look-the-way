@@ -118,7 +118,7 @@ public class ItemDetail implements Parcelable {
 
         switch (jalur) {
             case ItemAdapter.DATABASE_INSERT:
-                db.insert(TABLE_NAME, null, deretan);
+                id = (int) db.insert(TABLE_NAME, null, deretan);
                 break;
 
             case ItemAdapter.DATABASE_UPDATE:
