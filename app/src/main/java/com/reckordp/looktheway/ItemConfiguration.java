@@ -51,8 +51,9 @@ public class ItemConfiguration extends AppCompatActivity {
             Intent intent;
             intent = result.getData();
             if (result.getResultCode() == RESULT_OK && intent != null) {
-                masukkanKaitan(intent.getIntExtra(BerkaitanActivity.BERKAITAN_TERPILIH,
-                        ItemDetail.LEPAS_KAITAN));
+                int idItem = intent.getIntExtra(BerkaitanActivity.BERKAITAN_TERPILIH,
+                        ItemDetail.LEPAS_KAITAN);
+                masukkanKaitan(idItem);
             }
         });
 
@@ -82,7 +83,7 @@ public class ItemConfiguration extends AppCompatActivity {
             default:
                 confBerkaitan.setEnabled(true);
                 confBerkaitan.setOnClickListener(view -> {
-                    if (!confBerkaitan.isChecked()) return;
+                    if (!confBerkaitan.isChecked()) masukkanKaitan(ItemDetail.LEPAS_KAITAN);
                     Intent data = new Intent(this, BerkaitanActivity.class);
                     data.putExtra(BerkaitanActivity.BERKAITAN_DIRI, hadapan.id);
                     berkaitanSelect.launch(data);
@@ -120,10 +121,9 @@ public class ItemConfiguration extends AppCompatActivity {
         hadapan.darurat = confDarurat.isChecked();
         hadapan.terkini = confTerkini.isChecked();
 
-        if (!confBerkaitan.isChecked()) {
-            lepasKaitan();
-        } else if (satuKaitan) {
-            masukkanKaitan(AllItem.adapterAbadi.allItem.get(0).id);
+        if (satuKaitan) {
+            int kaitan = AllItem.adapterAbadi.allItem.get(0).id;
+            masukkanKaitan(confBerkaitan.isChecked() ? kaitan : ItemDetail.LEPAS_KAITAN);
         }
 
         if (hadapan.nama.isEmpty()) {
@@ -172,15 +172,13 @@ public class ItemConfiguration extends AppCompatActivity {
     private void masukkanKaitan(int idItem) {
         if (idItem == ItemDetail.LEPAS_KAITAN) {
             confBerkaitan.setChecked(false);
-            lepasKaitan();
+            hadapan.berkaitan = ItemDetail.LEPAS_KAITAN;
+            nameOfBerkaitan.setText("");
         } else {
             confBerkaitan.setChecked(true);
             hadapan.berkaitan = idItem;
+            nameOfBerkaitan.setText(AllItem.adapterAbadi.itemFromId(idItem).nama);
         }
-    }
-
-    private void lepasKaitan() {
-        hadapan.berkaitan = ItemDetail.LEPAS_KAITAN;
     }
 
     private void batalkan() {
@@ -194,7 +192,12 @@ public class ItemConfiguration extends AppCompatActivity {
         confPenting.setChecked(item.penting);
         confTerkini.setChecked(item.terkini);
         confDarurat.setChecked(item.darurat);
-        masukkanKaitan(item.berkaitan);
+        if (item.berkaitan == ItemDetail.LEPAS_KAITAN) {
+            confBerkaitan.setChecked(false);
+        } else {
+            confBerkaitan.setChecked(true);
+            nameOfBerkaitan.setText(AllItem.adapterAbadi.itemFromId(item.berkaitan).nama);
+        }
         return item;
     }
 }
