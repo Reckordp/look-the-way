@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class ItemConfiguration extends AppCompatActivity {
     public static final String ITEM_BARU_HASIL = "ITEM BARU HASIL";
@@ -30,6 +31,7 @@ public class ItemConfiguration extends AppCompatActivity {
     private CheckBox confDarurat;
     private CheckBox confTerkini;
     private CheckBox confBerkaitan;
+    private TextView nameOfBerkaitan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class ItemConfiguration extends AppCompatActivity {
         confDarurat = findViewById(R.id.centang_darurat);
         confTerkini = findViewById(R.id.centang_terkini);
         confBerkaitan = findViewById(R.id.centang_berkaitan);
+        nameOfBerkaitan = findViewById(R.id.item_berkaitan);
     }
 
     @Override
