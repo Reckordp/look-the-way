@@ -37,6 +37,7 @@ public class AllItem extends Fragment {
                 container, false);
         allItemListView = layout.findViewById(R.id.all_item);
         allItemListView.setAdapter(adapterAbadi);
+        refreshListView();
         return layout;
     }
 
@@ -60,7 +61,7 @@ public class AllItem extends Fragment {
 
     public void setMode(int mode) {
         clickMode = mode;
-        if (allItemListView == null) refreshListView();
+        if (allItemListView != null) refreshListView();
     }
 
     public interface ItemClickListener {
