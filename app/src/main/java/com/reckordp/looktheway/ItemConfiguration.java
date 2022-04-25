@@ -126,7 +126,7 @@ public class ItemConfiguration extends AppCompatActivity {
 
         if (hadapan.nama.isEmpty()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this,
-                    R.style.Theme_LookTheWay);
+                    R.style.Theme_MaterialComponents_Dialog_Alert);
             builder.setMessage(R.string.alert_name);
             builder.setPositiveButton(android.R.string.ok, (dialog, which) -> { });
             builder.show();
