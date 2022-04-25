@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     static final int DATABASE_INSERT = 0;
@@ -62,9 +62,10 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     }
 
     ItemDetail itemFromId(int id) {
-        Stream<ItemDetail> tersaring = allItem.stream().filter(itemDetail -> itemDetail.id == id);
-        if (tersaring.count() == 1) return (ItemDetail) tersaring.toArray()[0];
-        return null;
+        return allItem.stream()
+                .filter(e -> e.id == id)
+                .collect(Collectors.toList())
+                .get(0);
     }
 
     public void pengecualian(int id) {
