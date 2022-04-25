@@ -50,11 +50,11 @@ public class ItemConfiguration extends AppCompatActivity {
             }
         });
 
-        confNama = (EditText)findViewById(R.id.item_nama);
-        confPenting = (CheckBox)findViewById(R.id.centang_penting);
-        confDarurat = (CheckBox)findViewById(R.id.centang_darurat);
-        confTerkini = (CheckBox)findViewById(R.id.centang_terkini);
-        confBerkaitan = (CheckBox)findViewById(R.id.centang_berkaitan);
+        confNama = findViewById(R.id.item_nama);
+        confPenting = findViewById(R.id.centang_penting);
+        confDarurat = findViewById(R.id.centang_darurat);
+        confTerkini = findViewById(R.id.centang_terkini);
+        confBerkaitan = findViewById(R.id.centang_berkaitan);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class ItemConfiguration extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(CONFIGURATION_MODE)) {
             if (intent.getStringExtra(CONFIGURATION_MODE).equals(CONFIGURATION_MODE_ADA)) {
-                return intent.getParcelableExtra(CONFIGURATION_MODE_ADA_ITEM);
+                return sesuaikanConfig(intent.getParcelableExtra(CONFIGURATION_MODE_ADA_ITEM));
             }
         }
         return new ItemDetail();
@@ -147,5 +147,14 @@ public class ItemConfiguration extends AppCompatActivity {
         Intent intent = new Intent();
         intent.putExtra(ITEM_BATAL, true);
         setResult(RESULT_OK, intent);
+    }
+
+    private ItemDetail sesuaikanConfig(ItemDetail item) {
+        confNama.setText(item.nama);
+        confPenting.setChecked(item.penting);
+        confTerkini.setChecked(item.terkini);
+        confDarurat.setChecked(item.darurat);
+        confBerkaitan.setChecked(item.berkaitan != ItemDetail.LEPAS_KAITAN);
+        return item;
     }
 }
