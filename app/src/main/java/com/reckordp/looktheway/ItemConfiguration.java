@@ -94,7 +94,9 @@ public class ItemConfiguration extends AppCompatActivity {
         hadapan.darurat = confDarurat.isChecked();
         hadapan.terkini = confTerkini.isChecked();
 
-        if (satuKaitan && confBerkaitan.isChecked()) {
+        if (!confBerkaitan.isChecked()) {
+            lepasKaitan();
+        } else if (satuKaitan) {
             masukkanKaitan(AllItem.adapterAbadi.allItem.get(0).id);
         }
 
@@ -141,9 +143,17 @@ public class ItemConfiguration extends AppCompatActivity {
     }
 
     private void masukkanKaitan(int idItem) {
-        if (idItem != -1) {
+        if (idItem == ItemDetail.LEPAS_KAITAN) {
+            confBerkaitan.setChecked(false);
+            lepasKaitan();
+        } else {
+            confBerkaitan.setChecked(true);
             hadapan.berkaitan = idItem;
         }
+    }
+
+    private void lepasKaitan() {
+        hadapan.berkaitan = ItemDetail.LEPAS_KAITAN;
     }
 
     private void batalkan() {
@@ -157,7 +167,7 @@ public class ItemConfiguration extends AppCompatActivity {
         confPenting.setChecked(item.penting);
         confTerkini.setChecked(item.terkini);
         confDarurat.setChecked(item.darurat);
-        confBerkaitan.setChecked(item.berkaitan != ItemDetail.LEPAS_KAITAN);
+        masukkanKaitan(item.berkaitan);
         return item;
     }
 }
