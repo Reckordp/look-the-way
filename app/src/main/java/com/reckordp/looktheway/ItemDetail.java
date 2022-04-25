@@ -1,5 +1,7 @@
 package com.reckordp.looktheway;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -15,6 +17,8 @@ public class ItemDetail implements Parcelable {
     int berkaitan;
     boolean aktif;
 
+    private Parcel dulu;
+
     ItemDetail() {
         nama = "";
         penting = false;
@@ -22,12 +26,20 @@ public class ItemDetail implements Parcelable {
         terkini = false;
         berkaitan = LEPAS_KAITAN;
         aktif = true;
+        dulu = Parcel.obtain();
+        writeToParcel(dulu, 0);
     }
 
     protected ItemDetail(Parcel in) {
         nama = in.readString();
         fromTanda((byte) in.readInt());
         berkaitan = in.readInt();
+    }
+
+    public boolean sebanding(ItemDetail bandingan) {
+        return bandingan.nama.equals(nama) &&
+                bandingan.createTanda() == createTanda() &&
+                bandingan.berkaitan == berkaitan;
     }
 
     public String getNama() {
@@ -82,5 +94,33 @@ public class ItemDetail implements Parcelable {
 
     private int boolToInt(boolean aliran) {
         return aliran ? 1 : 0;
+    }
+
+    public void saveDatabase() {
+        int jalur;
+        SQLiteDatabase db;
+        ContentValues deretan;
+        String[] whereArgs = {};
+
+        if (sebanding(CREATOR.createFromParcel(dulu))) return;
+        jalur = AllItem.adapterAbadi.jalurUntukMenyimpan(this);
+        db = AllItem.adapterAbadi.db;
+        deretan = new ContentValues();
+        deretan.put("nama", nama);
+        deretan.put("tanda", createTanda());
+        deretan.put("berkaitan", berkaitan);
+
+        switch (jalur) {
+            case ItemAdapter.DATABASE_INSERT:
+                db.insert(TABLE_NAME, null, deretan);
+                break;
+
+            case ItemAdapter.DATABASE_UPDATE:
+                db.update(TABLE_NAME, deretan, "", whereArgs);
+                break;
+        }
+
+        AllItem.adapterAbadi.allItem.add(this);
+        AllItem.adapterAbadi.add(this);
     }
 }

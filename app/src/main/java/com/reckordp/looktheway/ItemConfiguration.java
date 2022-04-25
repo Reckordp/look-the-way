@@ -106,6 +106,8 @@ public class ItemConfiguration extends AppCompatActivity {
             return;
         }
 
+        hadapan.saveDatabase();
+
         Intent intent = new Intent();
         intent.putExtra(ITEM_BARU_HASIL, hadapan);
         setResult(RESULT_OK, intent);
