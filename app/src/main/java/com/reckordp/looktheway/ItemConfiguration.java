@@ -4,12 +4,12 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -115,7 +115,7 @@ public class ItemConfiguration extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(CONFIGURATION_MODE)) {
             if (intent.getStringExtra(CONFIGURATION_MODE).equals(CONFIGURATION_MODE_ADA)) {
-                return (ItemDetail) intent.getParcelableExtra(CONFIGURATION_MODE_ADA_ITEM);
+                return intent.getParcelableExtra(CONFIGURATION_MODE_ADA_ITEM);
             }
         }
         return new ItemDetail();
