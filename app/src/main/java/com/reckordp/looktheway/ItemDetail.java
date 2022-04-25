@@ -34,6 +34,7 @@ public class ItemDetail implements Parcelable {
         nama = in.readString();
         fromTanda((byte) in.readInt());
         berkaitan = in.readInt();
+        if (nama == null) nama = "";
     }
 
     public boolean sebanding(ItemDetail bandingan) {
