@@ -3,8 +3,6 @@ package com.reckordp.looktheway;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.reckordp.looktheway.databinding.ActivityBerkaitanBinding;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +11,6 @@ import android.widget.FrameLayout;
 public class BerkaitanActivity extends AppCompatActivity {
     static String BERKAITAN_TERPILIH = "BERKAITAN TERPILIH";
 
-    ActivityBerkaitanBinding berkaitanBinding;
     FrameLayout berkaitanView;
 
     @Override
@@ -21,8 +18,7 @@ public class BerkaitanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_berkaitan);
 
-        berkaitanBinding = ActivityBerkaitanBinding.inflate(getLayoutInflater());
-        berkaitanView = berkaitanBinding.getRoot();
+        berkaitanView = (FrameLayout) getWindow().getDecorView().getRootView();
         berkaitanView.setId(View.generateViewId());
         setContentView(berkaitanView);
 
