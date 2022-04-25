@@ -132,6 +132,6 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     }
 
     public int jalurUntukMenyimpan(ItemDetail itemDetail) {
-        return allItem.contains(itemDetail) ? DATABASE_INSERT : DATABASE_UPDATE;
+        return allItem.contains(itemDetail) ? DATABASE_UPDATE : DATABASE_INSERT;
     }
 }
