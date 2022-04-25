@@ -46,7 +46,8 @@ public class ItemConfiguration extends AppCompatActivity {
             Intent intent;
             intent = result.getData();
             if (result.getResultCode() == RESULT_OK && intent != null) {
-                masukkanKaitan(intent.getIntExtra(BerkaitanActivity.BERKAITAN_TERPILIH, -1));
+                masukkanKaitan(intent.getIntExtra(BerkaitanActivity.BERKAITAN_TERPILIH,
+                        ItemDetail.LEPAS_KAITAN));
             }
         });
 
@@ -101,7 +102,8 @@ public class ItemConfiguration extends AppCompatActivity {
         }
 
         if (hadapan.nama.isEmpty()) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_LookTheWay);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this,
+                    R.style.Theme_LookTheWay);
             builder.setMessage(R.string.alert_name);
             builder.setPositiveButton(android.R.string.ok, (dialog, which) -> { });
             builder.show();
