@@ -119,14 +119,13 @@ public class ItemDetail implements Parcelable {
         switch (jalur) {
             case ItemAdapter.DATABASE_INSERT:
                 id = (int) db.insert(TABLE_NAME, null, deretan);
+                AllItem.adapterAbadi.allItem.add(this);
+                AllItem.adapterAbadi.add(this);
                 break;
 
             case ItemAdapter.DATABASE_UPDATE:
                 db.update(TABLE_NAME, deretan, "", whereArgs);
                 break;
         }
-
-        AllItem.adapterAbadi.allItem.add(this);
-        AllItem.adapterAbadi.add(this);
     }
 }
