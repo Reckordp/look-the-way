@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 public class BerkaitanActivity extends AppCompatActivity {
@@ -18,9 +19,9 @@ public class BerkaitanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_berkaitan);
 
-        berkaitanView = (FrameLayout) getWindow().getDecorView().getRootView();
+        ViewGroup root = (ViewGroup) getWindow().getDecorView().getRootView();
+        berkaitanView = (FrameLayout) root.getChildAt(0);
         berkaitanView.setId(View.generateViewId());
-        setContentView(berkaitanView);
 
         AllItem allItemConfiguration = new AllItem();
         allItemConfiguration.setMode(AllItem.MODE_SELECTION);
