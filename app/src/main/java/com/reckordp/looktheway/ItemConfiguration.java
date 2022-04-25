@@ -23,17 +23,20 @@ public class ItemConfiguration extends AppCompatActivity {
 
     ItemDetail hadapan;
     private boolean satuKaitan = false;
-    private CheckBox berkaitanCentang = null;
     private ActivityResultLauncher<Intent> berkaitanSelect;
+
+    private EditText confNama;
+    private CheckBox confPenting;
+    private CheckBox confDarurat;
+    private CheckBox confTerkini;
+    private CheckBox confBerkaitan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ActionBar bar;
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_configuration);
 
-        bar = getSupportActionBar();
+        ActionBar bar = getSupportActionBar();
         if (bar != null) {
             bar.setDisplayShowHomeEnabled(true);
             bar.setDisplayHomeAsUpEnabled(true);
@@ -46,27 +49,32 @@ public class ItemConfiguration extends AppCompatActivity {
                 masukkanKaitan(intent.getIntExtra(BerkaitanActivity.BERKAITAN_TERPILIH, -1));
             }
         });
+
+        confNama = (EditText)findViewById(R.id.item_nama);
+        confPenting = (CheckBox)findViewById(R.id.centang_penting);
+        confDarurat = (CheckBox)findViewById(R.id.centang_darurat);
+        confTerkini = (CheckBox)findViewById(R.id.centang_terkini);
+        confBerkaitan = (CheckBox)findViewById(R.id.centang_berkaitan);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         hadapan = adakanHadapan();
-        berkaitanCentang = findViewById(R.id.centang_berkaitan);
 
         switch (AllItem.adapterAbadi.allItem.size()) {
             case 0:
-                berkaitanCentang.setEnabled(false);
+                confBerkaitan.setEnabled(false);
                 break;
 
             case 1:
-                berkaitanCentang.setEnabled(true);
+                confBerkaitan.setEnabled(true);
                 satuKaitan = true;
                 break;
 
             default:
-                berkaitanCentang.setEnabled(true);
-                berkaitanCentang.setOnClickListener(view -> {
+                confBerkaitan.setEnabled(true);
+                confBerkaitan.setOnClickListener(view -> {
                     berkaitanSelect.launch(new Intent(this, BerkaitanActivity.class));
                 });
                 break;
@@ -80,12 +88,12 @@ public class ItemConfiguration extends AppCompatActivity {
     }
 
     private void sudahiKonfigurasi() {
-        hadapan.nama = ((EditText)findViewById(R.id.item_nama)).getText().toString();
-        hadapan.penting = ((CheckBox)findViewById(R.id.centang_penting)).isChecked();
-        hadapan.darurat = ((CheckBox)findViewById(R.id.centang_darurat)).isChecked();
-        hadapan.terkini = ((CheckBox)findViewById(R.id.centang_terkini)).isChecked();
+        hadapan.nama = confNama.getText().toString();
+        hadapan.penting = confPenting.isChecked();
+        hadapan.darurat = confDarurat.isChecked();
+        hadapan.terkini = confTerkini.isChecked();
 
-        if (satuKaitan && berkaitanCentang.isChecked()) {
+        if (satuKaitan && confBerkaitan.isChecked()) {
             masukkanKaitan(AllItem.adapterAbadi.allItem.get(0).id);
         }
 
