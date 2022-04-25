@@ -75,7 +75,8 @@ public class ItemConfiguration extends AppCompatActivity {
             default:
                 confBerkaitan.setEnabled(true);
                 confBerkaitan.setOnClickListener(view -> {
-                    berkaitanSelect.launch(new Intent(this, BerkaitanActivity.class));
+                    Intent data = new Intent(this, BerkaitanActivity.class);
+                    berkaitanSelect.launch(data);
                 });
                 break;
         }

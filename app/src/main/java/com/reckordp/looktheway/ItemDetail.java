@@ -62,9 +62,9 @@ public class ItemDetail implements Parcelable {
     }
 
     public int createTanda() {
-        return ((byte)((boolToInt(penting)) << 3) |
-                (byte)((boolToInt(darurat)) << 2) |
-                (byte)((boolToInt(terkini)) << 1) |
+        return ((byte)(boolToInt(penting) << 3) |
+                (byte)(boolToInt(darurat) << 2) |
+                (byte)(boolToInt(terkini) << 1) |
                 (byte)(boolToInt(aktif)));
     }
 
