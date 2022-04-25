@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -90,6 +93,23 @@ public class ItemConfiguration extends AppCompatActivity {
             hadapan.aktif = false;
             sudahiKonfigurasi();
         });
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View focus = getCurrentFocus();
+        float ySentuh = ev.getRawY();
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        boolean ret = super.dispatchTouchEvent(ev);
+
+        if (focus == confNama && ev.getAction() == MotionEvent.ACTION_UP) {
+            if (ySentuh < focus.getTop() || ySentuh > focus.getBottom()) {
+                imm.hideSoftInputFromWindow(confNama.getWindowToken(), 0);
+                confNama.clearFocus();
+            }
+        }
+
+        return ret;
     }
 
     private void sudahiKonfigurasi() {
