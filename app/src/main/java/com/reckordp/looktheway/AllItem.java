@@ -47,6 +47,7 @@ public class AllItem extends Fragment {
         switch (clickMode) {
             case MODE_CONFIGURATION:
                 adapterAbadi.urutNama();
+                adapterAbadi.pengecualian(ItemAdapter.KECUALI_KOSONG);
                 break;
 
             case MODE_SELECTION:

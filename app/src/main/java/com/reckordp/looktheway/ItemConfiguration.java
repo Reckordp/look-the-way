@@ -84,6 +84,7 @@ public class ItemConfiguration extends AppCompatActivity {
                 confBerkaitan.setOnClickListener(view -> {
                     if (!confBerkaitan.isChecked()) return;
                     Intent data = new Intent(this, BerkaitanActivity.class);
+                    data.putExtra(BerkaitanActivity.BERKAITAN_DIRI, hadapan.id);
                     berkaitanSelect.launch(data);
                 });
                 break;

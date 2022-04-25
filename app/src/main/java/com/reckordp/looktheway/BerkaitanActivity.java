@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 public class BerkaitanActivity extends AppCompatActivity {
+    public static final String BERKAITAN_DIRI = "BERKAITAN DIRI";
     public static final String BERKAITAN_TERPILIH = "BERKAITAN TERPILIH";
 
     @Override
@@ -21,6 +22,9 @@ public class BerkaitanActivity extends AppCompatActivity {
             setResult(RESULT_OK, intent);
             finish();
         });
+
+        int diriId = getIntent().getIntExtra(BERKAITAN_DIRI, ItemAdapter.KECUALI_KOSONG);
+        AllItem.adapterAbadi.pengecualian(diriId);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(android.R.id.content, allItemConfiguration);
