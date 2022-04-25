@@ -14,12 +14,12 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 public class ItemConfiguration extends AppCompatActivity {
-    public static String ITEM_BARU_HASIL = "ITEM BARU HASIL";
-    public static String ITEM_BATAL = "ITEM BATAL";
-    public static String CONFIGURATION_MODE = "CONFIGURATION MODE";
-    public static String CONFIGURATION_MODE_BARU = "ITEM BARU";
-    public static String CONFIGURATION_MODE_ADA = "ITEM ADA";
-    public static String CONFIGURATION_MODE_ADA_ITEM = "CONFIGURATION ITEM";
+    public static final String ITEM_BARU_HASIL = "ITEM BARU HASIL";
+    public static final String ITEM_BATAL = "ITEM BATAL";
+    public static final String CONFIGURATION_MODE = "CONFIGURATION MODE";
+    public static final String CONFIGURATION_MODE_BARU = "ITEM BARU";
+    public static final String CONFIGURATION_MODE_ADA = "ITEM ADA";
+    public static final String CONFIGURATION_MODE_ADA_ITEM = "CONFIGURATION ITEM";
 
     ItemDetail hadapan;
     private boolean satuKaitan = false;

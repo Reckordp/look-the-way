@@ -5,9 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class ItemDatabaseHelper extends SQLiteOpenHelper {
-    public static String DATABASE_NAME = "Item.db";
-    public static int DATABASE_VERSION = 1;
-
+    public static final String DATABASE_NAME = "Item.db";
+    public static final int DATABASE_VERSION = 1;
     private static final String SQL_CREATE_TABLE = "CREATE TABLE " + ItemDetail.TABLE_NAME +
             " (id INTEGER PRIMARY KEY AUTOINCREMENT,nama VARCHAR(255),tanda INT(1)," +
             "berkaitan INTEGER,FOREIGN KEY(berkaitan) REFERENCES " + ItemDetail.TABLE_NAME +

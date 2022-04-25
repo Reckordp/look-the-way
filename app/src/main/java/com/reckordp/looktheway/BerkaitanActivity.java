@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 public class BerkaitanActivity extends AppCompatActivity {
-    static String BERKAITAN_TERPILIH = "BERKAITAN TERPILIH";
+    public static final String BERKAITAN_TERPILIH = "BERKAITAN TERPILIH";
 
     FrameLayout berkaitanView;
 

@@ -4,8 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ItemDetail implements Parcelable {
-    static int LEPAS_KAITAN = 0;
-    static String TABLE_NAME = "item";
+    public static final int LEPAS_KAITAN = 0;
+    public static final String TABLE_NAME = "item";
 
     int id;
     String nama;

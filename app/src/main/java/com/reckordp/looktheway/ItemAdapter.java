@@ -17,8 +17,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class ItemAdapter extends ArrayAdapter<ItemDetail> {
-
+    static final int DATABASE_INSERT = 0;
+    static final int DATABASE_UPDATE = 1;
     private static final int RESOURCE_ITEM_ADAPTER = R.layout.item_resource_layout;
+
     ItemDatabaseHelper openHelper;
     SQLiteDatabase db;
     ArrayList<ItemDetail> allItem;
