@@ -26,15 +26,20 @@ public class ItemDetail implements Parcelable {
         terkini = false;
         berkaitan = LEPAS_KAITAN;
         aktif = true;
-        dulu = Parcel.obtain();
-        writeToParcel(dulu, 0);
+        buatDulu();
     }
 
     protected ItemDetail(Parcel in) {
         nama = in.readString();
         fromTanda((byte) in.readInt());
         berkaitan = in.readInt();
+        buatDulu();
         if (nama == null) nama = "";
+    }
+
+    private void buatDulu() {
+        dulu = Parcel.obtain();
+        writeToParcel(dulu, 0);
     }
 
     public boolean sebanding(ItemDetail bandingan) {
