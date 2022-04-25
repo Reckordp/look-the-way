@@ -89,6 +89,13 @@ public class ItemConfiguration extends AppCompatActivity {
             masukkanKaitan(AllItem.adapterAbadi.allItem.get(0).id);
         }
 
+        if (hadapan.nama.isEmpty()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_LookTheWay);
+            builder.setMessage(R.string.alert_name);
+            builder.show();
+            return;
+        }
+
         Intent intent = new Intent();
         intent.putExtra(ITEM_BARU_HASIL, hadapan);
         setResult(RESULT_OK, intent);

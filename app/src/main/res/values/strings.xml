@@ -12,4 +12,5 @@
     <string name="centang_berkaitan">Berkaitan</string>
     <string name="item_selesai">Selesai</string>
     <string name="item_simpan">simpan</string>
+    <string name="alert_name">Please enter name of item</string>
 </resources>
