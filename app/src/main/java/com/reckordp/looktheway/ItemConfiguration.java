@@ -83,7 +83,11 @@ public class ItemConfiguration extends AppCompatActivity {
             default:
                 confBerkaitan.setEnabled(true);
                 confBerkaitan.setOnClickListener(view -> {
-                    if (!confBerkaitan.isChecked()) masukkanKaitan(ItemDetail.LEPAS_KAITAN);
+                    if (!confBerkaitan.isChecked()) {
+                        masukkanKaitan(ItemDetail.LEPAS_KAITAN);
+                        return;
+                    }
+
                     Intent data = new Intent(this, BerkaitanActivity.class);
                     data.putExtra(BerkaitanActivity.BERKAITAN_DIRI, hadapan.id);
                     berkaitanSelect.launch(data);
