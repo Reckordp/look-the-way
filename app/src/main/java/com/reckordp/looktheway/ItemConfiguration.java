@@ -75,8 +75,8 @@ public class ItemConfiguration extends AppCompatActivity {
                 break;
 
             case 1:
-                confBerkaitan.setEnabled(true);
                 satuKaitan = true;
+                confBerkaitan.setEnabled(true);
                 break;
 
             default:
