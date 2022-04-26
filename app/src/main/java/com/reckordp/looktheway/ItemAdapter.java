@@ -37,13 +37,6 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         Cursor allItemCursor = db.query(ItemDetail.TABLE_NAME, null, null,
                 selectionArgs, null, null, null);
         allItem = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            ItemDetail item;
-            item = new ItemDetail();
-            item.nama = "default - " + (i + 1);
-            item.id = 99 - i;
-            allItem.add(item);
-        }
 
         while (allItemCursor.moveToNext()) {
             ItemDetail item = new ItemDetail();
@@ -53,6 +46,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
             item.berkaitan = allItemCursor.getInt(3);
             allItem.add(item);
         }
+
         allItemCursor.close();
         addAll(allItem);
         cResources = ctx.getResources();
