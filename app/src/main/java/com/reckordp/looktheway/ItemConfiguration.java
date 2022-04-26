@@ -76,7 +76,7 @@ public class ItemConfiguration extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         spesHapus = findViewById(R.id.item_hapus);
-        hadapan = adakanHadapan();
+        if (hadapan == null) hadapan = adakanHadapan();
 
         switch (AllItem.adapterAbadi.allItem.size()) {
             case 0:
