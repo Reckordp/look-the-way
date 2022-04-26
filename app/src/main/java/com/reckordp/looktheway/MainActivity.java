@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra(ItemConfiguration.CONFIGURATION_MODE, ItemConfiguration.CONFIGURATION_MODE_BARU);
         } else {
             intent.putExtra(ItemConfiguration.CONFIGURATION_MODE, ItemConfiguration.CONFIGURATION_MODE_ADA);
-            intent.putExtra(ItemConfiguration.CONFIGURATION_MODE_ADA_ITEM, item);
+            intent.putExtra(ItemConfiguration.CONFIGURATION_MODE_ADA_ITEM, item.id);
         }
 
         itemDetailLauncher.launch(intent);

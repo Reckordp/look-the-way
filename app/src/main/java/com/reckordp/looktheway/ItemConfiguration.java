@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class ItemConfiguration extends AppCompatActivity {
-    public static final String ITEM_BARU_HASIL = "ITEM BARU HASIL";
     public static final String ITEM_BATAL = "ITEM BATAL";
     public static final String CONFIGURATION_MODE = "CONFIGURATION MODE";
     public static final String CONFIGURATION_MODE_BARU = "ITEM BARU";
@@ -27,7 +26,9 @@ public class ItemConfiguration extends AppCompatActivity {
     public static final String CONFIGURATION_MODE_ADA_ITEM = "CONFIGURATION ITEM";
 
     ItemDetail hadapan;
-    private boolean satuKaitan = false;
+    private boolean satuKaitan;
+    private boolean itemDihapus;
+    private boolean itemBatal;
     private ActivityResultLauncher<Intent> berkaitanSelect;
 
     private EditText confNama;
@@ -42,6 +43,10 @@ public class ItemConfiguration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_configuration);
+
+        itemDihapus = false;
+        itemBatal = true;
+        satuKaitan = false;
 
         ActionBar bar = getSupportActionBar();
         if (bar != null) {
@@ -134,6 +139,7 @@ public class ItemConfiguration extends AppCompatActivity {
 
     private void hapusDiterima() {
         hadapan.hapus();
+        itemDihapus = true;
         onBackPressed();
     }
 
@@ -157,12 +163,9 @@ public class ItemConfiguration extends AppCompatActivity {
             return;
         }
 
+        itemBatal = false;
         hadapan.saveDatabase();
-
-        Intent intent = new Intent();
-        intent.putExtra(ITEM_BARU_HASIL, hadapan);
-        setResult(RESULT_OK, intent);
-        finish();
+        onBackPressed();
     }
 
     @Override
@@ -176,7 +179,9 @@ public class ItemConfiguration extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        batalkan();
+        Intent intent = new Intent();
+        if (itemBatal && !itemDihapus) intent.putExtra(ITEM_BATAL, true);
+        setResult(RESULT_OK, intent);
         super.onBackPressed();
     }
 
@@ -184,7 +189,7 @@ public class ItemConfiguration extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(CONFIGURATION_MODE)) {
             if (intent.getStringExtra(CONFIGURATION_MODE).equals(CONFIGURATION_MODE_ADA)) {
-                return sesuaikanConfig(intent.getParcelableExtra(CONFIGURATION_MODE_ADA_ITEM));
+                return sesuaikanConfig(intent.getIntExtra(CONFIGURATION_MODE_ADA_ITEM, -1));
             }
         }
         spesHapus.setEnabled(false);
@@ -205,13 +210,8 @@ public class ItemConfiguration extends AppCompatActivity {
         }
     }
 
-    private void batalkan() {
-        Intent intent = new Intent();
-        intent.putExtra(ITEM_BATAL, true);
-        setResult(RESULT_OK, intent);
-    }
-
-    private ItemDetail sesuaikanConfig(ItemDetail item) {
+    private ItemDetail sesuaikanConfig(int itemId) {
+        ItemDetail item = AllItem.adapterAbadi.itemFromId(itemId);
         confNama.setText(item.nama);
         confPenting.setChecked(item.penting);
         confTerkini.setChecked(item.terkini);
