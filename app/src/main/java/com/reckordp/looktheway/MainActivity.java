@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> itemDetailLauncher;
@@ -19,14 +18,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         itemDetailLauncher = registerForActivityResult(new StartActivityForResult(), result -> {
-            FrameLayout lembar;
-            Intent intent;
-
-            lembar = findViewById(R.id.lembar);
-            intent = result.getData();
+            Intent intent = result.getData();
             if (intent != null && !intent.hasExtra(ItemConfiguration.ITEM_BATAL)) {
-                lembar.requestLayout();
-                lembar.invalidate();
+                AllItem.adapterAbadi.notifyDataSetChanged();
             }
         });
 
