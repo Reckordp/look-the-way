@@ -181,7 +181,9 @@ public class ItemConfiguration extends AppCompatActivity {
         } else {
             confBerkaitan.setChecked(true);
             hadapan.berkaitan = idItem;
-            nameOfBerkaitan.setText(AllItem.adapterAbadi.itemFromId(idItem).nama);
+            try {
+                nameOfBerkaitan.setText(AllItem.adapterAbadi.itemFromId(idItem).nama);
+            } catch (NullPointerException ignored) {}
         }
     }
 
@@ -200,7 +202,9 @@ public class ItemConfiguration extends AppCompatActivity {
             confBerkaitan.setChecked(false);
         } else {
             confBerkaitan.setChecked(true);
-            nameOfBerkaitan.setText(AllItem.adapterAbadi.itemFromId(item.berkaitan).nama);
+            try {
+                nameOfBerkaitan.setText(AllItem.adapterAbadi.itemFromId(item.berkaitan).nama);
+            } catch (NullPointerException ignored) {}
         }
         return item;
     }

@@ -62,10 +62,14 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     }
 
     ItemDetail itemFromId(int id) {
-        return allItem.stream()
-                .filter(e -> e.id == id)
-                .collect(Collectors.toList())
-                .get(0);
+        try {
+            return allItem.stream()
+                    .filter(e -> e.id == id)
+                    .collect(Collectors.toList())
+                    .get(0);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     public void pengecualian(int id) {
@@ -84,9 +88,12 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         final TextView resourceItemItemTerkait;
         final Button penghapus;
         final LayoutInflater inflater;
+        final ItemDetail item, kaitan;
 
         inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        ItemDetail item = allItem.get(position);
+        item = allItem.get(position);
+        kaitan = item.isBerkaitan() ? itemFromId(item.berkaitan) : null;
+
         if (item.id == idKecuali) {
             return new View(getContext());
         }
@@ -111,7 +118,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         textViewTanda(resourceItemTerkini, item.terkini);
         textViewTanda(resourceItemBerkaitan, item.berkaitan != ItemDetail.LEPAS_KAITAN);
         textViewTanda(resourceItemItemTerkait, item.berkaitan != ItemDetail.LEPAS_KAITAN);
-//        resourceItemItemTerkait.setText(item.nama);
+        if (kaitan != null) resourceItemItemTerkait.setText(kaitan.nama);
 
         penghapus.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),
