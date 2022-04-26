@@ -129,6 +129,14 @@ public class ItemDetail implements Parcelable {
         }
     }
 
+    public void hapus() {
+        String[] args = new String[1];
+        args[0] = String.valueOf(id);
+        AllItem.adapterAbadi.db.delete(TABLE_NAME, "id=?", args);
+        AllItem.adapterAbadi.allItem.remove(this);
+        AllItem.adapterAbadi.remove(this);
+    }
+
     public boolean isBerkaitan() {
         return berkaitan != LEPAS_KAITAN;
     }

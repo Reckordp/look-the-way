@@ -107,7 +107,7 @@
         android:layout_marginBottom="20dp"
         android:text="@string/item_selesai"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/pembagian"
+        app:layout_constraintEnd_toEndOf="@+id/pembagian_1"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -120,12 +120,32 @@
         android:text="@string/item_simpan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/pembagian" />
+        app:layout_constraintStart_toStartOf="@+id/pembagian_2" />
+
+    <Button
+        android:id="@+id/item_hapus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/item_hapus"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/pembagian_2"
+        app:layout_constraintStart_toStartOf="@+id/pembagian_1" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/pembagian"
+        android:id="@+id/pembagian_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.33" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/pembagian_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.66" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

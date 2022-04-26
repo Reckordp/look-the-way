@@ -95,6 +95,7 @@ public class ItemConfiguration extends AppCompatActivity {
                 break;
         }
 
+        findViewById(R.id.item_hapus).setOnClickListener(view -> alertHapusItem());
         findViewById(R.id.item_simpan).setOnClickListener(view -> sudahiKonfigurasi());
         findViewById(R.id.item_selesai).setOnClickListener(view -> {
             hadapan.aktif = false;
@@ -117,6 +118,15 @@ public class ItemConfiguration extends AppCompatActivity {
         }
 
         return ret;
+    }
+
+    private void alertHapusItem() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,
+                R.style.Theme_MaterialComponents_Dialog_Alert);
+        builder.setMessage("Are you sure to remove " + hadapan.nama + "?");
+        builder.setPositiveButton(android.R.string.yes, (d, w) -> hadapan.hapus());
+        builder.setNegativeButton(android.R.string.no, (d, w) -> {});
+        builder.show();
     }
 
     private void sudahiKonfigurasi() {
