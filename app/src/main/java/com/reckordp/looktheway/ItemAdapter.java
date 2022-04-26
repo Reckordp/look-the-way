@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -82,6 +84,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         final TextView resourceItemTerkini;
         final TextView resourceItemBerkaitan;
         final TextView resourceItemItemTerkait;
+        final Button penghapus;
         final LayoutInflater inflater;
 
         inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -102,6 +105,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         resourceItemTerkini = view.findViewById(R.id.resource_item_terkini);
         resourceItemBerkaitan = view.findViewById(R.id.resource_item_berkaitan);
         resourceItemItemTerkait = view.findViewById(R.id.resource_item_item_terkait);
+        penghapus = view.findViewById(R.id.item_hapus);
 
         resourceItemNama.setText(item.nama);
         textViewTanda(resourceItemPenting, item.penting);
@@ -111,7 +115,29 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         textViewTanda(resourceItemItemTerkait, item.berkaitan != ItemDetail.LEPAS_KAITAN);
 //        resourceItemItemTerkait.setText(item.nama);
 
+        penghapus.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),
+                    R.style.Theme_MaterialComponents_Dialog_Alert);
+            builder.setMessage("Are you sure to remove " + item.nama + "?");
+            builder.setPositiveButton(android.R.string.yes, (d, w) -> hapusItem(item));
+            builder.setNegativeButton(android.R.string.no, (d, w) -> {});
+            builder.show();
+        });
         return view;
+    }
+
+    private void hapusItem(ItemDetail item) {
+        final String[] deleteArgs = new String[1];
+
+        deleteArgs[0] = String.valueOf(item.id);
+        db.delete(ItemDetail.TABLE_NAME, "where id=?", deleteArgs);
+
+        allItem.forEach(itemDetail -> {
+            if (itemDetail.berkaitan == item.id) itemDetail.berkaitan = ItemDetail.LEPAS_KAITAN;
+        });
+
+        allItem.remove(item);
+        remove(item);
     }
 
     private void textViewTanda(TextView base, boolean acuan) {
