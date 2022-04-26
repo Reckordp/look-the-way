@@ -135,7 +135,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         final String[] deleteArgs = new String[1];
 
         deleteArgs[0] = String.valueOf(item.id);
-        db.delete(ItemDetail.TABLE_NAME, "where id=?", deleteArgs);
+        db.delete(ItemDetail.TABLE_NAME, "id=?", deleteArgs);
 
         allItem.forEach(itemDetail -> {
             if (itemDetail.berkaitan == item.id) itemDetail.berkaitan = ItemDetail.LEPAS_KAITAN;

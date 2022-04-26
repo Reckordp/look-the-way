@@ -124,7 +124,7 @@ public class ItemDetail implements Parcelable {
                 break;
 
             case ItemAdapter.DATABASE_UPDATE:
-                db.update(TABLE_NAME, deretan, "where id=?", whereArgs);
+                db.update(TABLE_NAME, deretan, "id=?", whereArgs);
                 break;
         }
     }
