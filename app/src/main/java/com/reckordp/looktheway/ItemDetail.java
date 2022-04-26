@@ -30,6 +30,7 @@ public class ItemDetail implements Parcelable {
     }
 
     protected ItemDetail(Parcel in) {
+        id = in.readInt();
         nama = in.readString();
         fromTanda((byte) in.readInt());
         berkaitan = in.readInt();
@@ -93,6 +94,7 @@ public class ItemDetail implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(nama);
         dest.writeInt(createTanda());
         dest.writeInt(berkaitan);
@@ -137,6 +139,7 @@ public class ItemDetail implements Parcelable {
         args[0] = String.valueOf(id);
         adapt.db.delete(TABLE_NAME, "id=?", args);
         adapt.allItem.remove(this);
+        adapt.remove(this);
         adapt.allItem.forEach(itemDetail -> {
             if (itemDetail.isBerkaitan() && itemDetail.berkaitan == id) {
                 itemDetail.berkaitan = LEPAS_KAITAN;
