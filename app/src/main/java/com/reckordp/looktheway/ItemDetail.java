@@ -131,10 +131,17 @@ public class ItemDetail implements Parcelable {
 
     public void hapus() {
         String[] args = new String[1];
+        ItemAdapter adapt;
+
+        adapt = AllItem.adapterAbadi;
         args[0] = String.valueOf(id);
-        AllItem.adapterAbadi.db.delete(TABLE_NAME, "id=?", args);
-        AllItem.adapterAbadi.allItem.remove(this);
-        AllItem.adapterAbadi.remove(this);
+        adapt.db.delete(TABLE_NAME, "id=?", args);
+        adapt.allItem.remove(this);
+        adapt.allItem.forEach(itemDetail -> {
+            if (itemDetail.isBerkaitan() && itemDetail.berkaitan == id) {
+                itemDetail.berkaitan = LEPAS_KAITAN;
+            }
+        });
     }
 
     public boolean isBerkaitan() {
