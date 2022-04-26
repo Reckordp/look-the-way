@@ -106,7 +106,7 @@ public class ItemDetail implements Parcelable {
         int jalur;
         SQLiteDatabase db;
         ContentValues deretan;
-        String[] whereArgs = {};
+        String[] whereArgs = { String.valueOf(id) };
 
         if (sebanding(CREATOR.createFromParcel(dulu))) return;
         jalur = AllItem.adapterAbadi.jalurUntukMenyimpan(this);
@@ -124,7 +124,7 @@ public class ItemDetail implements Parcelable {
                 break;
 
             case ItemAdapter.DATABASE_UPDATE:
-                db.update(TABLE_NAME, deretan, "", whereArgs);
+                db.update(TABLE_NAME, deretan, "where id=?", whereArgs);
                 break;
         }
     }
