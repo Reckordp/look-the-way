@@ -29,7 +29,6 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     SQLiteDatabase db;
     ArrayList<ItemDetail> allItem;
     Resources cResources;
-    Resources.Theme cTheme;
     int idKecuali;
 
     ItemAdapter(Context ctx) {
@@ -59,7 +58,6 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         allItemCursor.close();
         addAll(allItem);
         cResources = ctx.getResources();
-        cTheme = ctx.getTheme();
         idKecuali = KECUALI_KOSONG;
     }
 
