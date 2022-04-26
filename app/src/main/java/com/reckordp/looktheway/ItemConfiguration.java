@@ -198,13 +198,13 @@ public class ItemConfiguration extends AppCompatActivity {
         confPenting.setChecked(item.penting);
         confTerkini.setChecked(item.terkini);
         confDarurat.setChecked(item.darurat);
-        if (item.berkaitan == ItemDetail.LEPAS_KAITAN) {
-            confBerkaitan.setChecked(false);
-        } else {
+        if (item.isBerkaitan()) {
             confBerkaitan.setChecked(true);
             try {
                 nameOfBerkaitan.setText(AllItem.adapterAbadi.itemFromId(item.berkaitan).nama);
             } catch (NullPointerException ignored) {}
+        } else {
+            confBerkaitan.setChecked(false);
         }
         return item;
     }

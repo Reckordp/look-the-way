@@ -116,8 +116,8 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         textViewTanda(resourceItemPenting, item.penting);
         textViewTanda(resourceItemDarurat, item.darurat);
         textViewTanda(resourceItemTerkini, item.terkini);
-        textViewTanda(resourceItemBerkaitan, item.berkaitan != ItemDetail.LEPAS_KAITAN);
-        textViewTanda(resourceItemItemTerkait, item.berkaitan != ItemDetail.LEPAS_KAITAN);
+        textViewTanda(resourceItemBerkaitan, item.isBerkaitan());
+        textViewTanda(resourceItemItemTerkait, item.isBerkaitan());
         if (kaitan != null) resourceItemItemTerkait.setText(kaitan.nama);
 
         penghapus.setOnClickListener(v -> {

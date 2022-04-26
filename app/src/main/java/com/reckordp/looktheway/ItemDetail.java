@@ -128,4 +128,8 @@ public class ItemDetail implements Parcelable {
                 break;
         }
     }
+
+    public boolean isBerkaitan() {
+        return berkaitan != LEPAS_KAITAN;
+    }
 }
