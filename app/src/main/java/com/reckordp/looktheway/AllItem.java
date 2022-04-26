@@ -19,13 +19,12 @@ public class AllItem extends Fragment {
     public static ItemAdapter adapterAbadi = null;
 
     private ListView allItemListView = null;
-    private int clickMode;
+    private int clickMode = MODE_CONFIGURATION;
     private ItemClickListener eItemClick = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        clickMode = MODE_CONFIGURATION;
         if (adapterAbadi == null) adapterAbadi = new ItemAdapter(requireContext());
     }
 
