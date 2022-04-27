@@ -119,8 +119,8 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
             view = convertView;
         }
 
-        if (!item.aktif) view.setBackgroundColor(cResources.getColor(
-                R.color.item_disabled, null));
+        view.setBackgroundColor(cResources.getColor(
+                item.aktif ? android.R.color.transparent : R.color.item_disabled, null));
 
         resourceItemNama = view.findViewById(R.id.resource_item_nama);
         resourceItemPenting = view.findViewById(R.id.resource_item_penting);
