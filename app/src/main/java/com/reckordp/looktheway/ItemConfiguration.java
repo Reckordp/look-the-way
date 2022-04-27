@@ -26,7 +26,7 @@ public class ItemConfiguration extends AppCompatActivity {
     public static final String CONFIGURATION_MODE_ADA_ITEM = "CONFIGURATION ITEM";
 
     ItemDetail hadapan;
-    private boolean satuKaitan;
+    private boolean itemBaru;
     private boolean itemDihapus;
     private boolean itemBatal;
     private ActivityResultLauncher<Intent> berkaitanSelect;
@@ -44,9 +44,9 @@ public class ItemConfiguration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_configuration);
 
+        itemBaru = false;
         itemDihapus = false;
         itemBatal = true;
-        satuKaitan = false;
 
         ActionBar bar = getSupportActionBar();
         if (bar != null) {
@@ -80,29 +80,21 @@ public class ItemConfiguration extends AppCompatActivity {
         spesHapus = findViewById(R.id.item_hapus);
         if (hadapan == null) hadapan = adakanHadapan();
 
-        switch (AllItem.adapterAbadi.allItem.size()) {
-            case 0:
-                confBerkaitan.setEnabled(false);
-                break;
+        if (AllItem.adapterAbadi.getCount() > 1 ||
+                (AllItem.adapterAbadi.getCount() == 1 && itemBaru)) {
+            confBerkaitan.setEnabled(true);
+            confBerkaitan.setOnClickListener(view -> {
+                if (!confBerkaitan.isChecked()) {
+                    masukkanKaitan(ItemDetail.LEPAS_KAITAN);
+                    return;
+                }
 
-            case 1:
-                satuKaitan = true;
-                confBerkaitan.setEnabled(true);
-                break;
-
-            default:
-                confBerkaitan.setEnabled(true);
-                confBerkaitan.setOnClickListener(view -> {
-                    if (!confBerkaitan.isChecked()) {
-                        masukkanKaitan(ItemDetail.LEPAS_KAITAN);
-                        return;
-                    }
-
-                    Intent data = new Intent(this, BerkaitanActivity.class);
-                    data.putExtra(BerkaitanActivity.BERKAITAN_DIRI, hadapan.id);
-                    berkaitanSelect.launch(data);
-                });
-                break;
+                Intent data = new Intent(this, BerkaitanActivity.class);
+                data.putExtra(BerkaitanActivity.BERKAITAN_DIRI, hadapan.id);
+                berkaitanSelect.launch(data);
+            });
+        } else {
+            confBerkaitan.setEnabled(false);
         }
 
         Button selesai = findViewById(R.id.item_selesai);
@@ -162,11 +154,6 @@ public class ItemConfiguration extends AppCompatActivity {
         hadapan.darurat = confDarurat.isChecked();
         hadapan.terkini = confTerkini.isChecked();
 
-        if (satuKaitan) {
-            int kaitan = AllItem.adapterAbadi.allItem.get(0).id;
-            masukkanKaitan(confBerkaitan.isChecked() ? kaitan : ItemDetail.LEPAS_KAITAN);
-        }
-
         if (hadapan.nama.isEmpty()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this,
                     R.style.Theme_MaterialComponents_Dialog_Alert);
@@ -205,6 +192,7 @@ public class ItemConfiguration extends AppCompatActivity {
                 return sesuaikanConfig(intent.getIntExtra(CONFIGURATION_MODE_ADA_ITEM, -1));
             }
         }
+        itemBaru = true;
         spesHapus.setEnabled(false);
         return new ItemDetail();
     }
