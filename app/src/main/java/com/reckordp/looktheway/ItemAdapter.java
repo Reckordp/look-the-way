@@ -22,12 +22,13 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     static final int DATABASE_UPDATE = 1;
     static final int KECUALI_KOSONG = -1;
     private static final int RESOURCE_ITEM_ADAPTER = R.layout.item_resource_layout;
+    private static final int RESOURCE_KOSONG = R.layout.item_kosong;
 
     ItemDatabaseHelper openHelper;
     SQLiteDatabase db;
     ArrayList<ItemDetail> allItem;
     Resources cResources;
-    int idKecuali;
+    int posKecuali;
 
     ItemAdapter(Context ctx) {
         super(ctx, RESOURCE_ITEM_ADAPTER);
@@ -50,7 +51,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         allItemCursor.close();
         addAll(allItem);
         cResources = ctx.getResources();
-        idKecuali = KECUALI_KOSONG;
+        posKecuali = KECUALI_KOSONG;
     }
 
     ItemDetail itemFromId(int id) {
@@ -65,12 +66,24 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     }
 
     public void pengecualian(int id) {
-        idKecuali = id;
+        if (id == KECUALI_KOSONG) {
+            posKecuali = KECUALI_KOSONG;
+            return;
+        }
+        for (int i = 0; i < allItem.size(); i++) {
+            if (allItem.get(i).id == id) posKecuali = i;
+        }
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        if (posKecuali == position) return false;
+        return super.isEnabled(position);
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int pos, @Nullable View convertView, @NonNull ViewGroup parent) {
         final View view;
         final TextView resourceItemNama;
         final TextView resourceItemPenting;
@@ -81,13 +94,11 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         final LayoutInflater inflater;
         final ItemDetail item, kaitan;
 
-        inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        item = allItem.get(position);
-        kaitan = item.isBerkaitan() ? itemFromId(item.berkaitan) : null;
 
-        if (item.id == idKecuali) {
-            return new View(getContext());
-        }
+        inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (!isEnabled(pos)) return inflater.inflate(RESOURCE_KOSONG, parent, false);
+        item = allItem.get(pos);
+        kaitan = item.isBerkaitan() ? itemFromId(item.berkaitan) : null;
 
         if (convertView == null) {
             view = inflater.inflate(RESOURCE_ITEM_ADAPTER, parent, false);
