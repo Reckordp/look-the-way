@@ -44,12 +44,12 @@ public class AllItem extends Fragment {
         if (allItemListView == null) return;
         switch (clickMode) {
             case MODE_CONFIGURATION:
-                adapterAbadi.urutNama();
+                adapterAbadi.urutPalingPenting();
                 adapterAbadi.pengecualian(ItemAdapter.KECUALI_KOSONG);
                 break;
 
             case MODE_SELECTION:
-                adapterAbadi.urutPalingPenting();
+                adapterAbadi.urutNama();
                 break;
         }
         allItemListView.requestLayout();

@@ -97,7 +97,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
 
         inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (!isEnabled(pos)) return inflater.inflate(RESOURCE_KOSONG, parent, false);
-        item = allItem.get(pos);
+        item = getItem(pos);
         kaitan = item.isBerkaitan() ? itemFromId(item.berkaitan) : null;
 
         if (convertView == null) {
