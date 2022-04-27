@@ -176,16 +176,6 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
             @Override
             public ItemDetail uraiBerkaitan(int id) { return idMap.get(id); }
         };
-
-        sort((item1, item2) -> {
-            if (item1.isBerkaitan() && item2.isBerkaitan()) {
-                return 0;
-            } else if (item1.isBerkaitan()) {
-                return 1;
-            } else {
-                return -1;
-            }
-        });
         sort((item1, item2) -> {
             int skor1, skor2;
             skor1 = jalanSkor.getKetergantunganSkor(item1.id, item1);
