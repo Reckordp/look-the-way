@@ -63,10 +63,18 @@ public class ItemDetail implements Parcelable {
     private int skorDari(int tanda, boolean ada) {
         int skor;
         switch (tanda) {
-            case 0: skor = 1000;
-            case 1: skor = 200;
-            case 2: skor = 300;
-            case 3: skor = 100;
+            case 0:
+                skor = 1000;
+                break;
+            case 1:
+                skor = 200;
+                break;
+            case 2:
+                skor = 300;
+                break;
+            case 3:
+                skor = 100;
+                break;
             default: skor = 0;
         }
         return skor * boolToInt(ada);

@@ -30,7 +30,6 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     Resources cResources;
     int posKecuali;
     private final ArrayMap<Integer, ItemDetail> idMap = new ArrayMap<>();
-    private final ArrayMap<Integer, Integer> skorMap = new ArrayMap<>();
 
     ItemAdapter(Context ctx) {
         super(ctx, RESOURCE_ITEM_ADAPTER);
@@ -49,7 +48,6 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
             item.berkaitan = allItemCursor.getInt(3);
             allItem.add(item);
             idMap.put(item.id, item);
-            skorMap.put(item.id, item.getSkor());
         }
 
         allItemCursor.close();
@@ -61,10 +59,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     @Override
     public void add(@Nullable ItemDetail object) {
         allItem.add(object);
-        if (object != null) {
-            idMap.put(object.id, object);
-            skorMap.put(object.id, object.getSkor());
-        }
+        if (object != null) idMap.put(object.id, object);
         super.add(object);
     }
 
@@ -77,7 +72,6 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
                 }
             }
             idMap.remove(object.id);
-            skorMap.remove(object.id);
         }
         allItem.remove(object);
         super.remove(object);
@@ -149,18 +143,55 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         base.setTextColor(cResources.getColor(colorId, null));
     }
 
-    public void urutPalingPenting() {
-        ArrayMap<Integer, Integer> skorGantung = new ArrayMap<>(skorMap);
-        skorGantung.forEach((id, skor) -> {
-            ItemDetail item = idMap.get(id);
+    private interface PenghitungSkor {
+        ArrayMap<Integer, Integer> skorGantung = new ArrayMap<>();
+
+        int hitungan(@NonNull ItemDetail item);
+        ItemDetail uraiBerkaitan(int berkaitanId);
+
+        default int getKetergantunganSkor(int asalId, @Nullable ItemDetail item) {
+            int skor = 0;
             if (item != null && item.isBerkaitan()) {
-                ItemDetail berkaitan = idMap.get(item.berkaitan);
-                if (berkaitan != null) {
-                    skorGantung.replace(id, berkaitan.getSkor() * (berkaitan.aktif ? 1 : -1));
+                if (item.berkaitan == asalId) {
+                    return 0;
+                } else if (skorGantung.containsKey(item.id)) {
+                    return skorGantung.get(item.id);
+                } else {
+                    ItemDetail berkaitan = uraiBerkaitan(item.berkaitan);
+                    skor = hitungan(item) + getKetergantunganSkor(asalId, berkaitan);
+                    skorGantung.put(item.id, skor);
                 }
             }
+            return skor;
+        }
+    }
+
+    public void urutPalingPenting() {
+        PenghitungSkor jalanSkor = new PenghitungSkor() {
+            @Override
+            public int hitungan(@NonNull ItemDetail item) {
+                return item.getSkor() * (item.aktif ? 1 : -1);
+            }
+
+            @Override
+            public ItemDetail uraiBerkaitan(int id) { return idMap.get(id); }
+        };
+
+        sort((item1, item2) -> {
+            if (item1.isBerkaitan() && item2.isBerkaitan()) {
+                return 0;
+            } else if (item1.isBerkaitan()) {
+                return 1;
+            } else {
+                return -1;
+            }
         });
-        sort(Comparator.comparingInt(item -> skorGantung.get(item.id)));
+        sort((item1, item2) -> {
+            int skor1, skor2;
+            skor1 = jalanSkor.getKetergantunganSkor(item1.id, item1);
+            skor2 = jalanSkor.getKetergantunganSkor(item2.id, item2);
+            return Integer.compare(skor2, skor1);
+        });
     }
 
     public void urutNama() {
