@@ -40,9 +40,8 @@ public class AllItem extends Fragment {
         return layout;
     }
 
-    @Nullable
-    @Override
-    public View getView() {
+    public void refresh() {
+        if (allItemListView == null) return;
         switch (clickMode) {
             case MODE_CONFIGURATION:
                 adapterAbadi.urutNama();
@@ -52,10 +51,15 @@ public class AllItem extends Fragment {
             case MODE_SELECTION:
                 adapterAbadi.urutPalingPenting();
                 break;
-
-            default:
-                return null;
         }
+        allItemListView.requestLayout();
+        allItemListView.invalidate();
+    }
+
+    @Nullable
+    @Override
+    public View getView() {
+        refresh();
         return super.getView();
     }
 

@@ -11,20 +11,15 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> itemDetailLauncher;
+    private AllItem allItemFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        itemDetailLauncher = registerForActivityResult(new StartActivityForResult(), result -> {
-            Intent intent = result.getData();
-            if (intent != null && !intent.hasExtra(ItemConfiguration.ITEM_BATAL)) {
-                AllItem.adapterAbadi.notifyDataSetChanged();
-            }
-        });
-
-        AllItem allItemFragment = new AllItem();
+        allItemFragment = new AllItem();
+        itemDetailLauncher = usulkanDetail();
         findViewById(R.id.tambah).setOnClickListener(view -> layangkanDetail(null));
         allItemFragment.setOnItemClick(this::layangkanDetail);
 
@@ -35,14 +30,24 @@ public class MainActivity extends AppCompatActivity {
 
     private void layangkanDetail(@Nullable ItemDetail item) {
         Intent intent = new Intent(this, ItemConfiguration.class);
+        String confMode = ItemConfiguration.CONFIGURATION_MODE;
 
         if (item == null) {
-            intent.putExtra(ItemConfiguration.CONFIGURATION_MODE, ItemConfiguration.CONFIGURATION_MODE_BARU);
+            intent.putExtra(confMode, ItemConfiguration.CONFIGURATION_MODE_BARU);
         } else {
-            intent.putExtra(ItemConfiguration.CONFIGURATION_MODE, ItemConfiguration.CONFIGURATION_MODE_ADA);
+            intent.putExtra(confMode, ItemConfiguration.CONFIGURATION_MODE_ADA);
             intent.putExtra(ItemConfiguration.CONFIGURATION_MODE_ADA_ITEM, item.id);
         }
 
         itemDetailLauncher.launch(intent);
+    }
+
+    private ActivityResultLauncher<Intent> usulkanDetail() {
+        return registerForActivityResult(new StartActivityForResult(), result -> {
+            Intent intent = result.getData();
+            if (intent != null && !intent.hasExtra(ItemConfiguration.ITEM_BATAL)) {
+                allItemFragment.refresh();
+            }
+        });
     }
 }
