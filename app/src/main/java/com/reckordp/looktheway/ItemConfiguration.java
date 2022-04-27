@@ -103,12 +103,23 @@ public class ItemConfiguration extends AppCompatActivity {
                 break;
         }
 
+        Button selesai = findViewById(R.id.item_selesai);
         spesHapus.setOnClickListener(view -> alertHapusItem());
         findViewById(R.id.item_simpan).setOnClickListener(view -> sudahiKonfigurasi());
-        findViewById(R.id.item_selesai).setOnClickListener(view -> {
+        selesai.setOnClickListener(view -> {
             hadapan.aktif = false;
             sudahiKonfigurasi();
         });
+
+        if (!hadapan.aktif) {
+            selesai.setEnabled(false);
+            ((TextView)findViewById(R.id.item_status)).setText(R.string.item_status_nonaktif);
+            confNama.setEnabled(false);
+            confPenting.setEnabled(false);
+            confTerkini.setEnabled(false);
+            confDarurat.setEnabled(false);
+            confBerkaitan.setEnabled(false);
+        }
     }
 
     @Override

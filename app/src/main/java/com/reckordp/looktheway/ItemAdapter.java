@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     static final int DATABASE_INSERT = 0;
@@ -91,8 +92,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
 
     @Override
     public boolean isEnabled(int position) {
-        if (posKecuali == position) return false;
-        return super.isEnabled(position);
+        return posKecuali != position;
     }
 
     @NonNull
@@ -108,9 +108,8 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         final LayoutInflater inflater;
         final ItemDetail item, kaitan;
 
-
         inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (!isEnabled(pos)) return inflater.inflate(RESOURCE_KOSONG, parent, false);
+        if (posKecuali == pos) return inflater.inflate(RESOURCE_KOSONG, parent, false);
         item = getItem(pos);
         kaitan = item.isBerkaitan() ? itemFromId(item.berkaitan) : null;
 
@@ -119,6 +118,9 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         } else {
             view = convertView;
         }
+
+        if (!item.aktif) view.setBackgroundColor(cResources.getColor(
+                R.color.item_disabled, null));
 
         resourceItemNama = view.findViewById(R.id.resource_item_nama);
         resourceItemPenting = view.findViewById(R.id.resource_item_penting);
@@ -155,7 +157,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
                 if (item.berkaitan == asalId) {
                     return 0;
                 } else if (skorGantung.containsKey(item.id)) {
-                    return skorGantung.get(item.id);
+                    return Objects.requireNonNull(skorGantung.get(item.id));
                 } else {
                     ItemDetail berkaitan = uraiBerkaitan(item.berkaitan);
                     skor = hitungan(item) + getKetergantunganSkor(asalId, berkaitan);
@@ -185,7 +187,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     }
 
     public void urutNama() {
-        ItemDetail item = getItem(posKecuali);
+        ItemDetail item = posKecuali != KECUALI_KOSONG ? getItem(posKecuali) : null;
         sort(Comparator.comparing(ItemDetail::getNama));
         if (item != null) posKecuali = getPosition(item);
     }
