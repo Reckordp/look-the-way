@@ -148,13 +148,7 @@ public class ItemDetail implements Parcelable {
         adapt = AllItem.adapterAbadi;
         args[0] = String.valueOf(id);
         adapt.db.delete(TABLE_NAME, "id=?", args);
-        adapt.allItem.remove(this);
         adapt.remove(this);
-        adapt.allItem.forEach(itemDetail -> {
-            if (itemDetail.isBerkaitan() && itemDetail.berkaitan == id) {
-                itemDetail.berkaitan = LEPAS_KAITAN;
-            }
-        });
     }
 
     public boolean isBerkaitan() {

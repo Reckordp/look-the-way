@@ -69,6 +69,21 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         super.add(object);
     }
 
+    @Override
+    public void remove(@Nullable ItemDetail object) {
+        if (object != null) {
+            for (ItemDetail item : allItem) {
+                if (item.isBerkaitan() && item.berkaitan == object.id) {
+                    item.berkaitan = ItemDetail.LEPAS_KAITAN;
+                }
+            }
+            idMap.remove(object.id);
+            skorMap.remove(object.id);
+        }
+        allItem.remove(object);
+        super.remove(object);
+    }
+
     @Nullable ItemDetail itemFromId(int id) {
         return idMap.get(id);
     }
