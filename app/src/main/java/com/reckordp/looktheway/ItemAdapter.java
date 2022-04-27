@@ -16,7 +16,6 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.stream.Collectors;
 
 public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     static final int DATABASE_INSERT = 0;
@@ -93,9 +92,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
             posKecuali = KECUALI_KOSONG;
             return;
         }
-        for (int i = 0; i < allItem.size(); i++) {
-            if (allItem.get(i).id == id) posKecuali = i;
-        }
+        posKecuali = getPosition(idMap.get(id));
     }
 
     @Override
@@ -167,7 +164,9 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     }
 
     public void urutNama() {
+        ItemDetail item = getItem(posKecuali);
         sort(Comparator.comparing(ItemDetail::getNama));
+        if (item != null) posKecuali = getPosition(item);
     }
 
     public int jalurUntukMenyimpan(ItemDetail itemDetail) {

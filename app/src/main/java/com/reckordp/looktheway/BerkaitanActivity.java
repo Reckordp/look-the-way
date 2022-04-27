@@ -15,6 +15,8 @@ public class BerkaitanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         AllItem allItemConfiguration = new AllItem();
+        int diriId = getIntent().getIntExtra(BERKAITAN_DIRI, ItemAdapter.KECUALI_KOSONG);
+        AllItem.adapterAbadi.pengecualian(diriId);
         allItemConfiguration.setMode(AllItem.MODE_SELECTION);
         allItemConfiguration.setOnItemClick(item -> {
             Intent intent = new Intent();
@@ -22,9 +24,6 @@ public class BerkaitanActivity extends AppCompatActivity {
             setResult(RESULT_OK, intent);
             finish();
         });
-
-        int diriId = getIntent().getIntExtra(BERKAITAN_DIRI, ItemAdapter.KECUALI_KOSONG);
-        AllItem.adapterAbadi.pengecualian(diriId);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(android.R.id.content, allItemConfiguration);
