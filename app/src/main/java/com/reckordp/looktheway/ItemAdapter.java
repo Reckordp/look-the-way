@@ -70,6 +70,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
             for (ItemDetail item : allItem) {
                 if (item.isBerkaitan() && item.berkaitan == object.id) {
                     item.berkaitan = ItemDetail.LEPAS_KAITAN;
+                    item.saveDatabase();
                 }
             }
             idMap.remove(object.id);
