@@ -54,11 +54,22 @@ public class ItemDetail implements Parcelable {
     }
 
     public int getSkor() {
-        return 0;
+        return skorDari(0, aktif) +
+                skorDari(1, terkini) +
+                skorDari(2, darurat) +
+                skorDari(3, penting);
     }
 
-    public int getKetergantunganSkor() {
-        return 0;
+    private int skorDari(int tanda, boolean ada) {
+        int skor;
+        switch (tanda) {
+            case 0: skor = 1000;
+            case 1: skor = 200;
+            case 2: skor = 300;
+            case 3: skor = 100;
+            default: skor = 0;
+        }
+        return skor * boolToInt(ada);
     }
 
     public static final Creator<ItemDetail> CREATOR = new Creator<ItemDetail>() {
@@ -121,7 +132,6 @@ public class ItemDetail implements Parcelable {
         switch (jalur) {
             case ItemAdapter.DATABASE_INSERT:
                 id = (int) db.insert(TABLE_NAME, null, deretan);
-                AllItem.adapterAbadi.allItem.add(this);
                 AllItem.adapterAbadi.add(this);
                 break;
 

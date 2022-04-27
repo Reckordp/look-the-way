@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     ArrayList<ItemDetail> allItem;
     Resources cResources;
     int posKecuali;
+    private final ArrayMap<Integer, ItemDetail> idMap = new ArrayMap<>();
+    private final ArrayMap<Integer, Integer> skorMap = new ArrayMap<>();
 
     ItemAdapter(Context ctx) {
         super(ctx, RESOURCE_ITEM_ADAPTER);
@@ -46,6 +49,8 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
             item.fromTanda((byte) allItemCursor.getInt(2));
             item.berkaitan = allItemCursor.getInt(3);
             allItem.add(item);
+            idMap.put(item.id, item);
+            skorMap.put(item.id, item.getSkor());
         }
 
         allItemCursor.close();
@@ -54,15 +59,18 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         posKecuali = KECUALI_KOSONG;
     }
 
-    ItemDetail itemFromId(int id) {
-        try {
-            return allItem.stream()
-                    .filter(e -> e.id == id)
-                    .collect(Collectors.toList())
-                    .get(0);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
+    @Override
+    public void add(@Nullable ItemDetail object) {
+        allItem.add(object);
+        if (object != null) {
+            idMap.put(object.id, object);
+            skorMap.put(object.id, object.getSkor());
         }
+        super.add(object);
+    }
+
+    @Nullable ItemDetail itemFromId(int id) {
+        return idMap.get(id);
     }
 
     public void pengecualian(int id) {
@@ -130,15 +138,21 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
     }
 
     public void urutPalingPenting() {
-        sort(Comparator.comparingInt(this::hitungSkor));
+        ArrayMap<Integer, Integer> skorGantung = new ArrayMap<>(skorMap);
+        skorGantung.forEach((id, skor) -> {
+            ItemDetail item = idMap.get(id);
+            if (item != null && item.isBerkaitan()) {
+                ItemDetail berkaitan = idMap.get(item.berkaitan);
+                if (berkaitan != null) {
+                    skorGantung.replace(id, berkaitan.getSkor() * (berkaitan.aktif ? 1 : -1));
+                }
+            }
+        });
+        sort(Comparator.comparingInt(item -> skorGantung.get(item.id)));
     }
 
     public void urutNama() {
         sort(Comparator.comparing(ItemDetail::getNama));
-    }
-
-    private int hitungSkor(ItemDetail item) {
-        return item.getSkor() + item.getKetergantunganSkor();
     }
 
     public int jalurUntukMenyimpan(ItemDetail itemDetail) {
