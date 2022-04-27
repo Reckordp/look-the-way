@@ -61,6 +61,8 @@ public class ItemConfiguration extends AppCompatActivity {
                 int idItem = intent.getIntExtra(BerkaitanActivity.BERKAITAN_TERPILIH,
                         ItemDetail.LEPAS_KAITAN);
                 masukkanKaitan(idItem);
+            } else if (result.getResultCode() == RESULT_CANCELED) {
+                confBerkaitan.setChecked(false);
             }
         });
 
