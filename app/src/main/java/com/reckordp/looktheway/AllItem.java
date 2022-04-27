@@ -78,7 +78,8 @@ public class AllItem extends Fragment {
 
     private void refreshListView() {
         allItemListView.setOnItemClickListener((parent, view, position, id) -> {
-            if (eItemClick != null) eItemClick.onItemClick(adapterAbadi.allItem.get((int) id));
+            ItemDetail item = (ItemDetail) allItemListView.getItemAtPosition(position);
+            if (eItemClick != null) eItemClick.onItemClick(item);
         });
     }
 }
