@@ -127,7 +127,7 @@ public class ItemAdapter extends ArrayAdapter<ItemDetail> {
         textViewTanda(resourceItemTerkini, item.terkini);
         textViewTanda(resourceItemBerkaitan, item.isBerkaitan());
         textViewTanda(resourceItemItemTerkait, item.isBerkaitan());
-        if (kaitan != null) resourceItemItemTerkait.setText(kaitan.nama);
+        resourceItemItemTerkait.setText(kaitan != null ? kaitan.nama : "");
 
         return view;
     }
